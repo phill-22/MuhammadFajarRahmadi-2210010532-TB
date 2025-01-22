@@ -104,21 +104,25 @@ public class MainMenu extends javax.swing.JFrame {
     private void SiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiswaActionPerformed
         // TODO add your handling code here:
         new siswa().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_SiswaActionPerformed
 
     private void kelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasActionPerformed
         // TODO add your handling code here:
         new kelas().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_kelasActionPerformed
 
     private void PendaftaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PendaftaranActionPerformed
         // TODO add your handling code here:
         new pendaftaran().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_PendaftaranActionPerformed
 
     private void LaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaporanActionPerformed
         // TODO add your handling code here:
         new pendaftaran().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_LaporanActionPerformed
 
     private void KeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeluarActionPerformed

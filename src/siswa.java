@@ -1,7 +1,10 @@
+import com.mysql.jdbc.ResultSetImpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -19,6 +22,7 @@ public class siswa extends javax.swing.JFrame {
      */
     public siswa() {
         initComponents();
+        tampil();
     }
 
     /**
@@ -29,24 +33,51 @@ public class siswa extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         namajTextField = new javax.swing.JTextField();
         alamat = new javax.swing.JTextField();
-        tambahSiswa = new javax.swing.JButton();
         Tanggal_lahir = new com.toedter.calendar.JDateChooser();
+        kelaminjComboBox = new javax.swing.JComboBox<>();
+        sekolahasal = new javax.swing.JTextField();
+        tahunlulusYearChooser = new com.toedter.calendar.JYearChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tambahSiswa = new javax.swing.JButton();
+        ubahSiswa = new javax.swing.JButton();
+        HapusSiswa = new javax.swing.JButton();
+        clearSiswa = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        carijTextField = new javax.swing.JTextField();
+        CariSiswa = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        Kembali = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "null"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         namajTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 namajTextFieldActionPerformed(evt);
-            }
-        });
-
-        tambahSiswa.setText("tambah");
-        tambahSiswa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahSiswaActionPerformed(evt);
             }
         });
 
@@ -56,37 +87,184 @@ public class siswa extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(tambahSiswa))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Tanggal_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(namajTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                .addComponent(alamat)))))
-                .addContainerGap(143, Short.MAX_VALUE))
+        kelaminjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Kelamin", "Laki-Laki", "Perempuan" }));
+        kelaminjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kelaminjComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Alamat");
+
+        jLabel2.setText("Nama Lengkap");
+
+        jLabel3.setText("Tanggal Lahir");
+
+        jLabel4.setText("Asal Sekolah");
+
+        jLabel5.setText("Jenis Kelamin");
+
+        jLabel6.setText("Tahun Lulus");
+
+        tambahSiswa.setText("Tambah");
+        tambahSiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahSiswaActionPerformed(evt);
+            }
+        });
+
+        ubahSiswa.setText("Ubah");
+        ubahSiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahSiswaActionPerformed(evt);
+            }
+        });
+
+        HapusSiswa.setText("Hapus");
+        HapusSiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HapusSiswaActionPerformed(evt);
+            }
+        });
+
+        clearSiswa.setText("Clear");
+        clearSiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearSiswaActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Cari :");
+
+        carijTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carijTextFieldActionPerformed(evt);
+            }
+        });
+
+        CariSiswa.setText("Cari");
+        CariSiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CariSiswaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(280, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel6))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(namajTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(kelaminjComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(alamat, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Tanggal_lahir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sekolahasal, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tahunlulusYearChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tambahSiswa, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ubahSiswa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(HapusSiswa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearSiswa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(CariSiswa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(149, 149, 149))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(namajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Tanggal_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(tambahSiswa)
-                .addContainerGap(232, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(CariSiswa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(namajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addComponent(Tanggal_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(kelaminjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sekolahasal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tahunlulusYearChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addComponent(tambahSiswa)
+                        .addGap(18, 18, 18)
+                        .addComponent(ubahSiswa)
+                        .addGap(18, 18, 18)
+                        .addComponent(HapusSiswa)
+                        .addGap(18, 18, 18)
+                        .addComponent(clearSiswa)))
+                .addContainerGap())
         );
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
+
+        Kembali.setText("Kembali");
+        Kembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KembaliActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(284, 284, 284)
+                .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(891, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(Kembali)
+                .addContainerGap(608, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -98,14 +276,26 @@ public class siswa extends javax.swing.JFrame {
     private void tambahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahSiswaActionPerformed
         // TODO add your handling code here:
         try {
-            String sql = "insert into siswa (nama,alamat,tanggal_lahir) values('"
+            String kelamin;
+             if (kelaminjComboBox.getSelectedIndex() == 1) {
+                 kelamin = "L"; // Laki-laki
+             } else if (kelaminjComboBox.getSelectedIndex() == 2) {
+                 kelamin = "P"; // Perempuan
+             } else {
+                 throw new Exception("Kelamin tidak valid. Pilih 'L' atau 'P'.");
+             }
+            String sql = "insert into siswa (nama,alamat,tanggal_lahir,kelamin,sekolah_asal,tahun_lulus) values('"
                     +namajTextField.getText()+"','"
                     +alamat.getText()+"','"
-                    +tgl_lahir+"')";
+                    +tgl_lahir+"','"
+                    +kelamin+"','"
+                    +sekolahasal.getText()+"','"
+                    +tahunlulusYearChooser.getYear()+"')";
                  java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
                  java.sql.PreparedStatement pst= conn.prepareStatement(sql);
                  pst.execute();
                  JOptionPane.showMessageDialog(null, "Data Berhasil disimpan");
+                 tampil();
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, "Data Gagal disimpan");
             System.out.println(e.getMessage());
@@ -121,6 +311,189 @@ public class siswa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Tanggal_lahirPropertyChange
 
+    private void kelaminjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelaminjComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kelaminjComboBoxActionPerformed
+
+    private void ubahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahSiswaActionPerformed
+        // TODO add your handling code here:
+       try {
+            // Validasi input
+            if (namajTextField.getText().isEmpty() || alamat.getText().isEmpty() || sekolahasal.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Harap lengkapi semua data!");
+                return;
+            }
+
+            // Ambil nama saat ini (nama yang akan menjadi referensi untuk WHERE)
+            String namaSekarang = carijTextField.getText(); // Nama yang digunakan untuk mencari data di database
+
+            // Tentukan nilai kelamin berdasarkan index ComboBox
+            String kelamin = "";
+            if (kelaminjComboBox.getSelectedIndex() == 1) {
+                kelamin = "L"; // Laki-laki
+            } else if (kelaminjComboBox.getSelectedIndex() == 2) {
+                kelamin = "P"; // Perempuan
+            } else {
+                JOptionPane.showMessageDialog(null, "Pilih kelamin yang valid!");
+                return;
+            }
+
+            // Koneksi ke database
+            java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+
+            // Query SQL untuk memperbarui data siswa berdasarkan nama
+            String sql = "UPDATE siswa SET nama=?, alamat=?, tanggal_lahir=?, kelamin=?, sekolah_asal=?, tahun_lulus=? WHERE nama=?";
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+
+            // Isi parameter ke dalam query
+            pst.setString(1, namajTextField.getText()); // Nama baru
+            pst.setString(2, alamat.getText());
+            pst.setString(3, tgl_lahir); // Pastikan format tanggal valid
+            pst.setString(4, kelamin); // Isi kelamin berdasarkan index ComboBox
+            pst.setString(5, sekolahasal.getText());
+            pst.setInt(6, tahunlulusYearChooser.getYear());
+            pst.setString(7, namaSekarang); // Nama saat ini sebagai referensi untuk WHERE
+
+            // Eksekusi query
+            int rowsAffected = pst.executeUpdate();
+
+            // Notifikasi hasil
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Data berhasil diperbarui");
+            } else {
+                JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau tidak berhasil diperbarui");
+            }
+
+            // Panggil metode untuk memperbarui tampilan data
+            tampil();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Data gagal diperbarui: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+
+    }//GEN-LAST:event_ubahSiswaActionPerformed
+
+    private void HapusSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusSiswaActionPerformed
+        // TODO add your handling code here:
+         try {
+            // Koneksi ke database
+            java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+
+            // Query SQL untuk menghapus data berdasarkan nama
+            String sql = "DELETE FROM siswa WHERE nama = ?";
+
+            // Persiapkan statement
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+
+            // Set nilai parameter (nama siswa)
+            pst.setString(1, namajTextField.getText());
+
+            // Eksekusi query
+            int rowsAffected = pst.executeUpdate();
+
+            // Beri notifikasi berdasarkan hasil eksekusi
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+            } else {
+                JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau tidak berhasil dihapus");
+            }
+
+            // Panggil metode untuk memperbarui tampilan data (misalnya JTable)
+            tampil();
+         } catch (Exception e) {
+        // Tampilkan pesan kesalahan
+        JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + e.getMessage());
+        e.printStackTrace();
+        }
+
+        
+    }//GEN-LAST:event_HapusSiswaActionPerformed
+
+    private void clearSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearSiswaActionPerformed
+        // TODO add your handling code here:
+        namajTextField.setText("");
+        alamat.setText("");
+        Tanggal_lahir.setDate(null);
+        kelaminjComboBox.setSelectedIndex(0);
+        sekolahasal.setText("");
+        tahunlulusYearChooser.setYear(2025);
+        
+    }//GEN-LAST:event_clearSiswaActionPerformed
+
+    private void carijTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carijTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_carijTextFieldActionPerformed
+
+    private void CariSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CariSiswaActionPerformed
+        // TODO add your handling code here:
+        try {
+            java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+            String sql = "select * from siswa where nama= '"+carijTextField.getText()+"' or sekolah_asal= '"+carijTextField.getText()+"'";
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            if (rs.next()) {
+                namajTextField.setText(rs.getNString(2));
+                alamat.setText(rs.getNString(3));
+                Tanggal_lahir.setDate(rs.getDate(4));
+                // Atur ComboBox berdasarkan jenis kelamin
+                String kelamin = rs.getNString(5);
+                if ("L".equalsIgnoreCase(kelamin)) {
+                 kelaminjComboBox.setSelectedIndex(1); // Laki-laki
+                } else if ("P".equalsIgnoreCase(kelamin)) {
+                kelaminjComboBox.setSelectedIndex(2); // Perempuan
+                } else {
+                kelaminjComboBox.setSelectedIndex(0); // Default (tidak valid)
+                }
+                sekolahasal.setText(rs.getNString(6));
+                tahunlulusYearChooser.setYear(rs.getInt(7));
+                JOptionPane.showMessageDialog(null, "Data Siswa " +carijTextField.getText()+" Ditemukan");
+                tampil();
+            }
+        } catch (Exception e) {
+            CariSiswa.requestFocus();
+        }
+    }//GEN-LAST:event_CariSiswaActionPerformed
+
+    private void KembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliActionPerformed
+        // TODO add your handling code here:
+        new MainMenu().setVisible(true);
+        
+        this.dispose();
+        
+       
+    }//GEN-LAST:event_KembaliActionPerformed
+        
+        public void tampil(){
+            try {
+                 DefaultTableModel tabel = new DefaultTableModel();
+                 tabel.addColumn("Nama Lengkap");
+                 tabel.addColumn("Alamat");
+                 tabel.addColumn("Tanggal Lahir");
+                 tabel.addColumn("Jenis Kelamin");
+                 tabel.addColumn("Asal Sekolah");
+                 tabel.addColumn("Tahun Lulus");
+                 java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
+                 String sql= "SELECT * FROM siswa";
+                 java.sql.PreparedStatement pst= conn.prepareStatement(sql);
+                 ResultSet rs = pst.executeQuery(sql);
+                    while (rs.next()){
+                        tabel.addRow(new Object[]{
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        
+                        });
+                        jTable2.setModel(tabel);
+                    }
+            } catch (Exception e) {
+                 System.out.println("error : "+ e.getMessage());
+            }
+        }
+    
     /**
      * @param args the command line arguments
      */
@@ -157,9 +530,29 @@ public class siswa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CariSiswa;
+    private javax.swing.JButton HapusSiswa;
+    private javax.swing.JButton Kembali;
     private com.toedter.calendar.JDateChooser Tanggal_lahir;
     private javax.swing.JTextField alamat;
+    private javax.swing.JTextField carijTextField;
+    private javax.swing.JButton clearSiswa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JComboBox<String> kelaminjComboBox;
     private javax.swing.JTextField namajTextField;
+    private javax.swing.JTextField sekolahasal;
+    private com.toedter.calendar.JYearChooser tahunlulusYearChooser;
     private javax.swing.JButton tambahSiswa;
+    private javax.swing.JButton ubahSiswa;
     // End of variables declaration//GEN-END:variables
 }
