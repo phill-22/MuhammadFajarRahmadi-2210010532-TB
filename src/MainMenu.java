@@ -25,21 +25,106 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Siswa = new javax.swing.JButton();
+        kelas = new javax.swing.JButton();
+        Pendaftaran = new javax.swing.JButton();
+        Laporan = new javax.swing.JButton();
+        Keluar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Siswa.setText("Siswa");
+        Siswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SiswaActionPerformed(evt);
+            }
+        });
+
+        kelas.setText("Kelas");
+        kelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kelasActionPerformed(evt);
+            }
+        });
+
+        Pendaftaran.setText("Pendaftaran");
+        Pendaftaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PendaftaranActionPerformed(evt);
+            }
+        });
+
+        Laporan.setText("Laporan");
+        Laporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaporanActionPerformed(evt);
+            }
+        });
+
+        Keluar.setText("Keluar");
+        Keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KeluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Laporan, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kelas, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Siswa, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(Siswa)
+                .addGap(18, 18, 18)
+                .addComponent(kelas)
+                .addGap(18, 18, 18)
+                .addComponent(Pendaftaran)
+                .addGap(18, 18, 18)
+                .addComponent(Laporan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addComponent(Keluar)
+                .addGap(40, 40, 40))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiswaActionPerformed
+        // TODO add your handling code here:
+        new siswa().setVisible(true);
+    }//GEN-LAST:event_SiswaActionPerformed
+
+    private void kelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasActionPerformed
+        // TODO add your handling code here:
+        new kelas().setVisible(true);
+    }//GEN-LAST:event_kelasActionPerformed
+
+    private void PendaftaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PendaftaranActionPerformed
+        // TODO add your handling code here:
+        new pendaftaran().setVisible(true);
+    }//GEN-LAST:event_PendaftaranActionPerformed
+
+    private void LaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaporanActionPerformed
+        // TODO add your handling code here:
+        new pendaftaran().setVisible(true);
+    }//GEN-LAST:event_LaporanActionPerformed
+
+    private void KeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeluarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_KeluarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,5 +162,10 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Keluar;
+    private javax.swing.JButton Laporan;
+    private javax.swing.JButton Pendaftaran;
+    private javax.swing.JButton Siswa;
+    private javax.swing.JButton kelas;
     // End of variables declaration//GEN-END:variables
 }

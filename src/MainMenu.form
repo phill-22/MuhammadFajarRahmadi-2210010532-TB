@@ -23,13 +23,77 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="Keluar" min="-2" pref="136" max="-2" attributes="0"/>
+                  <Component id="Laporan" min="-2" pref="136" max="-2" attributes="0"/>
+                  <Component id="Pendaftaran" min="-2" pref="136" max="-2" attributes="0"/>
+                  <Component id="kelas" min="-2" pref="136" max="-2" attributes="0"/>
+                  <Component id="Siswa" min="-2" pref="136" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="78" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+              <Component id="Siswa" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="kelas" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="Pendaftaran" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="Laporan" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="90" max="32767" attributes="0"/>
+              <Component id="Keluar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="Siswa">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Siswa"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SiswaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="kelas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Kelas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kelasActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Pendaftaran">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pendaftaran"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PendaftaranActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Laporan">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Laporan"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LaporanActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Keluar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Keluar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="KeluarActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
 </Form>
