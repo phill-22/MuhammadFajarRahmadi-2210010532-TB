@@ -33,7 +33,6 @@ public class siswa extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -443,7 +442,7 @@ public class siswa extends javax.swing.JFrame {
                 } else if ("P".equalsIgnoreCase(kelamin)) {
                 kelaminjComboBox.setSelectedIndex(2); // Perempuan
                 } else {
-                kelaminjComboBox.setSelectedIndex(0); // Default (tidak valid)
+                kelaminjComboBox.setSelectedIndex(0);
                 }
                 sekolahasal.setText(rs.getNString(6));
                 tahunlulusYearChooser.setYear(rs.getInt(7));
