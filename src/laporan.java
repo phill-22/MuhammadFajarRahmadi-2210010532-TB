@@ -1,3 +1,11 @@
+
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +22,7 @@ public class laporan extends javax.swing.JFrame {
      */
     public laporan() {
         initComponents();
+        
     }
 
     /**
@@ -24,23 +33,375 @@ public class laporan extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        SiswaButton = new javax.swing.JButton();
+        kelasButton = new javax.swing.JButton();
+        PendaftaranButton = new javax.swing.JButton();
+        KembaliButton = new javax.swing.JButton();
+        CetakButton = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1736, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 88, Short.MAX_VALUE)
+        );
+
+        SiswaButton.setText("Laporan Siswa");
+        SiswaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SiswaButtonActionPerformed(evt);
+            }
+        });
+
+        kelasButton.setText("Laporan Kelas");
+        kelasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kelasButtonActionPerformed(evt);
+            }
+        });
+
+        PendaftaranButton.setText("Laporan Pendaftaran");
+        PendaftaranButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PendaftaranButtonActionPerformed(evt);
+            }
+        });
+
+        KembaliButton.setText("Kembali");
+        KembaliButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KembaliButtonActionPerformed(evt);
+            }
+        });
+
+        CetakButton.setText("Cetak Data");
+        CetakButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CetakButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(CetakButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(PendaftaranButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(SiswaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(kelasButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(KembaliButton, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(SiswaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(kelasButton)
+                .addGap(18, 18, 18)
+                .addComponent(PendaftaranButton)
+                .addGap(56, 56, 56)
+                .addComponent(KembaliButton)
+                .addGap(18, 18, 18)
+                .addComponent(CetakButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "null"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(33, 33, 33))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private String currentReportTitle = "Laporan"; // Default judul
+
+    private void KembaliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliButtonActionPerformed
+        // TODO add your handling code here:
+           new MainMenu().setVisible(true);
+        
+            this.dispose();
+    }//GEN-LAST:event_KembaliButtonActionPerformed
+
+    private void SiswaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiswaButtonActionPerformed
+        // TODO add your handling code here:
+         currentReportTitle = "Laporan Siswa"; // Judul untuk laporan siswa
+        tampilSiswa(); // Memuat data siswa ke tabel
+    }//GEN-LAST:event_SiswaButtonActionPerformed
+
+    private void kelasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasButtonActionPerformed
+        // TODO add your handling code here:
+         currentReportTitle = "Laporan Kelas"; // Judul untuk laporan kelas
+        tampilKelas(); // Memuat data kelas ke tabel
+    }//GEN-LAST:event_kelasButtonActionPerformed
+
+    private void PendaftaranButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PendaftaranButtonActionPerformed
+        // TODO add your handling code here:
+        currentReportTitle = "Laporan Pendaftaran"; // Judul untuk laporan pendaftaran
+    tampilpendaftaran(); // Memuat data pendaftaran ke tabel
+    }//GEN-LAST:event_PendaftaranButtonActionPerformed
+
+    private void CetakButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CetakButtonActionPerformed
+        // TODO add your handling code here:
+     try {
+        // Pilih lokasi untuk menyimpan file PDF
+        javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+        fileChooser.setDialogTitle("Save as PDF");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF Files", "pdf"));
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            // Tambahkan ekstensi ".pdf" jika tidak ada
+            if (!filePath.endsWith(".pdf")) {
+                filePath += ".pdf";
+            }
+
+            // Buat file PDF
+            com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+            com.itextpdf.text.pdf.PdfWriter.getInstance(document, new java.io.FileOutputStream(filePath));
+
+            document.open();
+
+            // Setel font dan ukuran
+            com.itextpdf.text.Font font = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.TIMES_ROMAN, 12, com.itextpdf.text.Font.NORMAL);
+
+            // Tambahkan judul laporan dari tombol yang diklik
+            com.itextpdf.text.Paragraph title = new com.itextpdf.text.Paragraph(currentReportTitle, font);
+            title.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            document.add(title);
+
+            // Tambahkan spasi kosong
+            document.add(new com.itextpdf.text.Paragraph(" ")); // Spasi kosong
+
+            // Buat tabel PDF dari JTable
+            com.itextpdf.text.pdf.PdfPTable pdfTable = new com.itextpdf.text.pdf.PdfPTable(jTable2.getColumnCount());
+            pdfTable.setWidthPercentage(100);
+
+            // Tambahkan header kolom
+            for (int i = 0; i < jTable2.getColumnCount(); i++) {
+                com.itextpdf.text.Phrase columnHeader = new com.itextpdf.text.Phrase(jTable2.getColumnName(i), font);
+                pdfTable.addCell(columnHeader);
+            }
+
+            // Tambahkan data baris
+            for (int rows = 0; rows < jTable2.getRowCount(); rows++) {
+                for (int cols = 0; cols < jTable2.getColumnCount(); cols++) {
+                    com.itextpdf.text.Phrase cellData = new com.itextpdf.text.Phrase(jTable2.getValueAt(rows, cols).toString(), font);
+                    pdfTable.addCell(cellData);
+                }
+            }
+
+            // Tambahkan tabel ke dokumen
+            document.add(pdfTable);
+
+            document.close();
+
+            // Tampilkan notifikasi sukses
+            javax.swing.JOptionPane.showMessageDialog(this, "PDF berhasil disimpan di: " + filePath);
+
+            // Buka file PDF menggunakan PDF Viewer default sistem
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop.getDesktop().open(new java.io.File(filePath));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Sistem Anda tidak mendukung membuka file secara otomatis.");
+            }
+        }
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_CetakButtonActionPerformed
+
+     public void tampilSiswa(){
+            try {
+                 DefaultTableModel tabel = new DefaultTableModel();
+                 tabel.addColumn("Nama Lengkap");
+                 tabel.addColumn("Alamat");
+                 tabel.addColumn("Tanggal Lahir");
+                 tabel.addColumn("Jenis Kelamin");
+                 tabel.addColumn("Asal Sekolah");
+                 tabel.addColumn("Tahun Lulus");
+                 java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
+                 String sql= "SELECT * FROM siswa";
+                 java.sql.PreparedStatement pst= conn.prepareStatement(sql);
+                 ResultSet rs = pst.executeQuery(sql);
+                    while (rs.next()){
+                        tabel.addRow(new Object[]{
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        
+                        });
+                        jTable2.setModel(tabel);
+                    }
+            } catch (Exception e) {
+                 System.out.println("error : "+ e.getMessage());
+            }
+        }
+     
+       public void tampilKelas(){
+            try {
+                  DefaultTableModel tabel = new DefaultTableModel();
+                    tabel.addColumn("Nama Kelas");
+                    tabel.addColumn("Tingkatan Kelas");
+                    tabel.addColumn("Wali Kelas");
+                    tabel.addColumn("Jurusan");
+                    tabel.addColumn("Jumlah Siswa");
+                    tabel.addColumn("Ruangan");
+                    java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
+                    String sql= "SELECT * FROM kelas";
+                    java.sql.PreparedStatement pst= conn.prepareStatement(sql);
+                    ResultSet rs = pst.executeQuery(sql);
+                    while (rs.next()){
+                        tabel.addRow(new Object[]{
+                        rs.getString(2),
+                        rs.getString(4),
+                        rs.getString(3),
+                        rs.getString(7),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        
+                        });
+                        jTable2.setModel(tabel);
+                    }
+
+                
+            } catch (Exception e) {
+                System.out.println("error : "+ e.getMessage());
+            }
+        
+        }
+       
+       public void tampilpendaftaran() {
+    try {
+        DefaultTableModel tabel = new DefaultTableModel();
+        tabel.addColumn("Nama Siswa");
+        tabel.addColumn("Tanggal Pendaftaran");
+        tabel.addColumn("Jurusan");
+        tabel.addColumn("Kelas");
+        tabel.addColumn("Baju Olahraga");
+        tabel.addColumn("Baju Batik");
+        tabel.addColumn("Buku Pelajaran");
+        tabel.addColumn("Total Biaya");
+        tabel.addColumn("Metode Pembayaran");
+        tabel.addColumn("Status Pembayaran");
+
+        java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+        String sql = """
+            SELECT siswa.nama AS nama_siswa, pendaftaran.tanggal_pendaftaran, pendaftaran.jurusan, 
+                   kelas.nama_kelas, pendaftaran.beli_baju_olahraga, pendaftaran.beli_baju_batik, 
+                   pendaftaran.beli_buku_pelajaran, pendaftaran.total_biaya, pendaftaran.metode_pembayaran, 
+                   pendaftaran.status_pendaftaran
+            FROM pendaftaran
+            INNER JOIN siswa ON pendaftaran.id_siswa = siswa.id_siswa
+            INNER JOIN kelas ON pendaftaran.id_kelas = kelas.id_kelas
+        """;
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            tabel.addRow(new Object[]{
+                rs.getString("nama_siswa"),
+                rs.getString("tanggal_pendaftaran"),
+                rs.getString("jurusan"),
+                rs.getString("nama_kelas"),
+                rs.getBoolean("beli_baju_olahraga") ? "Iya" : "Tidak", // Konversi ke Iya/Tidak
+                rs.getBoolean("beli_baju_batik") ? "Iya" : "Tidak",     // Konversi ke Iya/Tidak
+                rs.getBoolean("beli_buku_pelajaran") ? "Iya" : "Tidak",// Konversi ke Iya/Tidak
+                rs.getDouble("total_biaya"),
+                rs.getString("metode_pembayaran"),
+                rs.getString("status_pendaftaran")
+            });
+        }
+        jTable2.setModel(tabel);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal memuat data: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+    
     /**
      * @param args the command line arguments
      */
@@ -77,5 +438,15 @@ public class laporan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CetakButton;
+    private javax.swing.JButton KembaliButton;
+    private javax.swing.JButton PendaftaranButton;
+    private javax.swing.JButton SiswaButton;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JButton kelasButton;
     // End of variables declaration//GEN-END:variables
 }

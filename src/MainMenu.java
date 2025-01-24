@@ -121,7 +121,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void LaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaporanActionPerformed
         // TODO add your handling code here:
-        new pendaftaran().setVisible(true);
+        new laporan().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_LaporanActionPerformed
 

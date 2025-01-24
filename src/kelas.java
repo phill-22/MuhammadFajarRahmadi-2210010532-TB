@@ -30,7 +30,6 @@ public class kelas extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -53,6 +52,8 @@ public class kelas extends javax.swing.JFrame {
         jumlahTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         ruangan = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jurusanComboBox = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,6 +150,15 @@ public class kelas extends javax.swing.JFrame {
 
         jLabel4.setText("Ruangan");
 
+        jLabel6.setText("Jurusan");
+
+        jurusanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jurusan", "IPS", "IPA", "BAHASA" }));
+        jurusanComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jurusanComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,14 +181,18 @@ public class kelas extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(2, 2, 2)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jLabel4)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(tambahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(ubahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(HapusSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(clearSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(tambahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(ubahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(HapusSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(clearSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addGap(72, 72, 72)
+                                                .addComponent(jurusanComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(24, 24, 24))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1)
@@ -228,7 +242,13 @@ public class kelas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(ruangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel6))
+                            .addComponent(jurusanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(tambahSiswa)
                         .addGap(18, 18, 18)
                         .addComponent(ubahSiswa)
@@ -238,7 +258,7 @@ public class kelas extends javax.swing.JFrame {
                         .addComponent(clearSiswa)
                         .addGap(18, 18, 18)
                         .addComponent(Kembali)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -355,12 +375,13 @@ public class kelas extends javax.swing.JFrame {
                 default:
                     throw new Exception("tingkatan kelas tidak valid. Pilih '10' atau '11' atau '12'.");
                 }   
-                String sql = "insert into kelas (nama_kelas,wali_kelas,tingkat_kelas) values('"
+                String sql = "insert into kelas (nama_kelas,wali_kelas,tingkat_kelas,jumlah_siswa,ruangan,jurusan) values('"
                         +nama_kelas.getText()+"','"
                         +walikelasTextField.getText()+"','"
                         +tingkat+"','"
                         +jumlahTextField.getText()+"','"
-                        +ruangan.getText()+"')";
+                        +ruangan.getText()+"','"
+                        +jurusanComboBox.getSelectedItem()+"')";
                      java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
                      java.sql.PreparedStatement pst= conn.prepareStatement(sql);
                      pst.execute();
@@ -471,6 +492,7 @@ public class kelas extends javax.swing.JFrame {
         tingkat_kelasComboBox.setSelectedIndex(0);
         jumlahTextField.setText("");
         ruangan.setText("");
+        jurusanComboBox.setSelectedIndex(0);
 
     }//GEN-LAST:event_clearSiswaActionPerformed
 
@@ -486,12 +508,17 @@ public class kelas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jumlahTextFieldActionPerformed
 
+    private void jurusanComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jurusanComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jurusanComboBoxActionPerformed
+
         public void tampil(){
             try {
                   DefaultTableModel tabel = new DefaultTableModel();
                     tabel.addColumn("Nama Kelas");
                     tabel.addColumn("Tingkatan Kelas");
                     tabel.addColumn("Wali Kelas");
+                    tabel.addColumn("Jurusan");
                     tabel.addColumn("Jumlah Siswa");
                     tabel.addColumn("Ruangan");
                     java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
@@ -503,6 +530,7 @@ public class kelas extends javax.swing.JFrame {
                         rs.getString(2),
                         rs.getString(4),
                         rs.getString(3),
+                        rs.getString(7),
                         rs.getInt(5),
                         rs.getString(6),
                         
@@ -563,12 +591,14 @@ public class kelas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jumlahTextField;
+    private javax.swing.JComboBox<String> jurusanComboBox;
     private javax.swing.JTextField nama_kelas;
     private javax.swing.JTextField ruangan;
     private javax.swing.JButton tambahSiswa;

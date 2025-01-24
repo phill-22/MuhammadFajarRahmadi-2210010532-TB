@@ -1,3 +1,11 @@
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,12 +16,19 @@
  * @author ASUS ROG
  */
 public class pendaftaran extends javax.swing.JFrame {
+    private final Map<String, String> kelasMap = new HashMap<>(); // Map untuk menyimpan id_kelas dan nama_kelas
+    private final Map<Integer, String> siswaMap = new HashMap<>();
 
     /**
      * Creates new form pendaftaran
      */
     public pendaftaran() {
         initComponents();
+        tampil();
+        loadJurusan();
+        loadSiswaData();
+        updateRincianHarga();
+        
     }
 
     /**
@@ -27,7 +42,6 @@ public class pendaftaran extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        nama_siswa = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         carijTextField = new javax.swing.JTextField();
         Carikelas = new javax.swing.JButton();
@@ -41,19 +55,22 @@ public class pendaftaran extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        tanggalDateChooser = new com.toedter.calendar.JDateChooser();
         jurusanComboBox = new javax.swing.JComboBox<>();
         kelasComboBox = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         pelajaranCheckBox = new javax.swing.JCheckBox();
         olgaCheckBox = new javax.swing.JCheckBox();
         batikCheckBox = new javax.swing.JCheckBox();
-        RincianBiaya = new javax.swing.JLabel();
         Total = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         metodeComboBox = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        metodeComboBox1 = new javax.swing.JComboBox<>();
+        statusComboBox = new javax.swing.JComboBox<>();
+        namaComboBox = new javax.swing.JComboBox<>();
+        LBLTotal = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        rincianHargaTextArea = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -146,12 +163,25 @@ public class pendaftaran extends javax.swing.JFrame {
         jLabel6.setText("Pilih Biaya Tambahan :");
 
         pelajaranCheckBox.setText("Buku Pelajaran");
+        pelajaranCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                pelajaranCheckBoxStateChanged(evt);
+            }
+        });
 
         olgaCheckBox.setText("Baju Olahraga");
+        olgaCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                olgaCheckBoxStateChanged(evt);
+            }
+        });
 
         batikCheckBox.setText("Baju Batik");
-
-        RincianBiaya.setText("Rincian Biaya");
+        batikCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                batikCheckBoxStateChanged(evt);
+            }
+        });
 
         Total.setText("Total");
 
@@ -166,68 +196,82 @@ public class pendaftaran extends javax.swing.JFrame {
 
         jLabel9.setText("Status Pendaftaran");
 
-        metodeComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Metode Pembayaran", "Cash", "Transfer", " " }));
-        metodeComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih status pembayaran", "lunas", "belum lunas", " ", " " }));
+        statusComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metodeComboBox1ActionPerformed(evt);
+                statusComboBoxActionPerformed(evt);
             }
         });
+
+        namaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Nama Siswa" }));
+        namaComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namaComboBoxActionPerformed(evt);
+            }
+        });
+
+        LBLTotal.setText("Total");
+
+        rincianHargaTextArea.setColumns(20);
+        rincianHargaTextArea.setRows(5);
+        jScrollPane1.setViewportView(rincianHargaTextArea);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4)
+                            .addComponent(pelajaranCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(batikCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(olgaCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(Total)))
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(428, 428, 428)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(Carikelas))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4)
-                                    .addComponent(pelajaranCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(batikCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(olgaCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(RincianBiaya)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(Total)))
-                            .addComponent(jLabel5))
+                            .addComponent(metodeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(1280, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(kelasComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jurusanComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 132, Short.MAX_VALUE)
+                                .addComponent(tanggalDateChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(namaComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LBLTotal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(metodeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(metodeComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nama_siswa, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(kelasComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jurusanComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 132, Short.MAX_VALUE)
-                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tambahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ubahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(HapusSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(clearSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(ubahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(HapusSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(clearSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tambahSiswa, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(297, 297, 297))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(428, 428, 428)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(Carikelas)
                 .addGap(159, 159, 159))
         );
         jPanel1Layout.setVerticalGroup(
@@ -235,17 +279,61 @@ public class pendaftaran extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Carikelas)
-                            .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
+                        .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(namaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel5)
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel3)
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel4))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
+                                .addGap(44, 44, 44)
+                                .addComponent(tanggalDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
+                                .addComponent(jurusanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)
+                                .addComponent(kelasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(pelajaranCheckBox)
+                                .addGap(18, 18, 18)
+                                .addComponent(olgaCheckBox)
+                                .addGap(18, 18, 18)
+                                .addComponent(batikCheckBox)))
+                        .addGap(81, 81, 81)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, 0)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(metodeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Total)
+                                .addComponent(LBLTotal))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Carikelas)
+                                    .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
                                 .addComponent(tambahSiswa)
                                 .addGap(18, 18, 18)
                                 .addComponent(ubahSiswa)
@@ -254,47 +342,8 @@ public class pendaftaran extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(clearSiswa)
                                 .addGap(18, 18, 18)
-                                .addComponent(Kembali))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel5)
-                                .addGap(33, 33, 33)
-                                .addComponent(jLabel3)
-                                .addGap(23, 23, 23)
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(pelajaranCheckBox)
-                                .addGap(18, 18, 18)
-                                .addComponent(olgaCheckBox)
-                                .addGap(18, 18, 18)
-                                .addComponent(batikCheckBox)
-                                .addGap(18, 18, 18)
-                                .addComponent(RincianBiaya)
-                                .addGap(18, 18, 18)
-                                .addComponent(Total)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nama_siswa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
-                                .addComponent(jurusanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(13, 13, 13)
-                                .addComponent(kelasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(269, 269, 269)
-                                .addComponent(metodeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(metodeComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(108, Short.MAX_VALUE))
+                                .addComponent(Kembali)))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -315,206 +364,35 @@ public class pendaftaran extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carijTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carijTextFieldActionPerformed
+    private void namaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_carijTextFieldActionPerformed
+    }//GEN-LAST:event_namaComboBoxActionPerformed
 
-    private void CarikelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarikelasActionPerformed
+    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
         // TODO add your handling code here:
-        try {
-            // Buat koneksi ke database
-            java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+    }//GEN-LAST:event_statusComboBoxActionPerformed
 
-            // Query untuk mencari data berdasarkan nama kelas atau wali kelas
-            String sql = "SELECT * FROM kelas WHERE nama_kelas = ? OR wali_kelas = ?";
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+    private void metodeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodeComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_metodeComboBoxActionPerformed
 
-            // Set parameter pencarian
-            pst.setString(1, carijTextField.getText());
-            pst.setString(2, carijTextField.getText());
+    private void kelasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasComboBoxActionPerformed
+        String selectedNamaKelas = (String) kelasComboBox.getSelectedItem();
+        String idKelas = kelasMap.get(selectedNamaKelas); // Ambil id_kelas berdasarkan nama_kelas
+        if (idKelas != null) {
+            System.out.println("ID Kelas yang dipilih : "+idKelas);
 
-            // Eksekusi query
-            ResultSet rs = pst.executeQuery();
-
-            // Jika data ditemukan
-            if (rs.next()) {
-                // Isi data ke form
-                nama_siswa.setText(rs.getString("nama_kelas")); // Kolom nama_kelas
-                walikelasTextField.setText(rs.getString("wali_kelas")); // Kolom wali_kelas
-                String tingkat = rs.getString("tingkat_kelas"); // Kolom tingkat_kelas
-                jumlahTextField.setText(rs.getString("jumlah_siswa"));
-                ruangan.setText(rs.getString("ruangan"));
-
-                // Atur pilihan pada ComboBox berdasarkan tingkat
-                if ("10".equalsIgnoreCase(tingkat)) {
-                    tingkat_kelasComboBox.setSelectedIndex(1); // Index 1 untuk 10
-                } else if ("11".equalsIgnoreCase(tingkat)) {
-                    tingkat_kelasComboBox.setSelectedIndex(2); // Index 2 untuk 11
-                } else if ("12".equalsIgnoreCase(tingkat)) {
-                    tingkat_kelasComboBox.setSelectedIndex(3); // Index 3 untuk 12
-                } else {
-                    tingkat_kelasComboBox.setSelectedIndex(0); // Default: Tidak valid
-                }
-
-                // Fokuskan pada baris yang dicari di JTable
-                DefaultTableModel model = (DefaultTableModel) jTable2.getModel(); // Pastikan `jTable2` adalah JTable Anda
-                boolean found = false; // Menandai apakah baris ditemukan
-                for (int i = 0; i < model.getRowCount(); i++) {
-                    // Cocokkan data nama_kelas atau wali_kelas di JTable
-                    if (model.getValueAt(i, 1).toString().equalsIgnoreCase(carijTextField.getText()) ||
-                        model.getValueAt(i, 2).toString().equalsIgnoreCase(carijTextField.getText())) {
-                        jTable2.setRowSelectionInterval(i, i); // Pilih baris yang sesuai
-                        jTable2.scrollRectToVisible(jTable2.getCellRect(i, 0, true)); // Scroll ke baris tersebut
-                        found = true;
-                        break;
-                    }
-                }
-
-                JOptionPane.showMessageDialog(null, "Data Siswa " +carijTextField.getText()+" Ditemukan");
-                tampil();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Data tidak ditemukan di database.");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + e.getMessage());
-            e.printStackTrace();
+        }else{
+            System.out.println("Belum ada Kelas Yang dipilih");
         }
-    }//GEN-LAST:event_CarikelasActionPerformed
+    }//GEN-LAST:event_kelasComboBoxActionPerformed
 
-    private void tambahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahSiswaActionPerformed
+    private void jurusanComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jurusanComboBoxActionPerformed
         // TODO add your handling code here:
-        try {
-            String tingkat;
-            switch (tingkat_kelasComboBox.getSelectedIndex()) {
-                case 1:
-                tingkat="10";
-                break;
-                case 2:
-                tingkat="11";
-                break;
-                case 3:
-                tingkat="12";
-                break;
-                default:
-                throw new Exception("tingkatan kelas tidak valid. Pilih '10' atau '11' atau '12'.");
-            }
-            String sql = "insert into kelas (nama_kelas,wali_kelas,tingkat_kelas) values('"
-            +nama_siswa.getText()+"','"
-            +walikelasTextField.getText()+"','"
-            +tingkat+"','"
-            +jumlahTextField.getText()+"','"
-            +ruangan.getText()+"')";
-            java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
-            java.sql.PreparedStatement pst= conn.prepareStatement(sql);
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Data Berhasil disimpan");
-            tampil();
+        String selectedJurusan = (String) jurusanComboBox.getSelectedItem();
+        loadKelasByJurusan(selectedJurusan);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Data Gagal disimpan");
-            System.out.println(e.getMessage());
-        }
-
-    }//GEN-LAST:event_tambahSiswaActionPerformed
-
-    private void ubahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahSiswaActionPerformed
-        // TODO add your handling code here:
-        try {
-            // Validasi input
-            if (nama_siswa.getText().isEmpty() || walikelasTextField.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Harap lengkapi semua data!");
-                return;
-            }
-
-            // Ambil nama saat ini (nama yang akan menjadi referensi untuk WHERE)
-            String namaSekarang = carijTextField.getText();
-
-            // Tentukan nilai kelamin berdasarkan index ComboBox
-            String tingkat = "";
-            switch (tingkat_kelasComboBox.getSelectedIndex()) {
-                case 1 -> tingkat="10";
-                case 2 -> tingkat="11";
-                case 3 -> tingkat="12";
-                default -> throw new Exception("tingkatan kelas tidak valid. Pilih '10' atau '11' atau '12'.");
-            }
-
-            // Koneksi ke database
-            java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
-
-            // Query SQL untuk memperbarui data siswa berdasarkan nama
-            String sql = "UPDATE kelas SET nama_kelas=?, wali_kelas=?, tingkat_kelas=?, jumlah_siswa=?,ruangan=? WHERE nama_kelas=?";
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-
-            // Isi parameter ke dalam query
-            pst.setString(1, nama_siswa.getText()); // Nama baru
-            pst.setString(2, walikelasTextField.getText());
-            pst.setString(3, tingkat); // Pastikan format tanggal valid
-            pst.setString(4,jumlahTextField.getText()) ;
-            pst.setString(5, ruangan.getText());
-            pst.setString(6, namaSekarang); // Nama saat ini sebagai referensi untuk WHERE
-
-            // Eksekusi query
-            int rowsAffected = pst.executeUpdate();
-
-            // Notifikasi hasil
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Data berhasil diperbarui");
-            } else {
-                JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau tidak berhasil diperbarui");
-            }
-
-            // Panggil metode untuk memperbarui tampilan data
-            tampil();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Data gagal diperbarui: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-    }//GEN-LAST:event_ubahSiswaActionPerformed
-
-    private void HapusSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusSiswaActionPerformed
-        // TODO add your handling code here:
-        try {
-            // Koneksi ke database
-            java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
-
-            // Query SQL untuk menghapus data berdasarkan nama
-            String sql = "DELETE FROM kelas WHERE nama_kelas = ?";
-
-            // Persiapkan statement
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-
-            // Set nilai parameter (nama kelas)
-            pst.setString(1, nama_siswa.getText());
-
-            // Eksekusi query
-            int rowsAffected = pst.executeUpdate();
-
-            // Beri notifikasi berdasarkan hasil eksekusi
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-            } else {
-                JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau tidak berhasil dihapus");
-            }
-
-            // Panggil metode untuk memperbarui tampilan data (misalnya JTable)
-            tampil();
-        } catch (Exception e) {
-            // Tampilkan pesan kesalahan
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_HapusSiswaActionPerformed
-
-    private void clearSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearSiswaActionPerformed
-        // TODO add your handling code here:
-        walikelasTextField.setText("");
-        nama_siswa.setText("");
-        tingkat_kelasComboBox.setSelectedIndex(0);
-        jumlahTextField.setText("");
-        ruangan.setText("");
-    }//GEN-LAST:event_clearSiswaActionPerformed
+    }//GEN-LAST:event_jurusanComboBoxActionPerformed
 
     private void KembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliActionPerformed
         // TODO add your handling code here:
@@ -523,22 +401,471 @@ public class pendaftaran extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_KembaliActionPerformed
 
-    private void jurusanComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jurusanComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jurusanComboBoxActionPerformed
+    private void clearSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearSiswaActionPerformed
 
-    private void kelasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kelasComboBoxActionPerformed
+        clearInputs();
+    }//GEN-LAST:event_clearSiswaActionPerformed
 
-    private void metodeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodeComboBoxActionPerformed
+    private void HapusSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusSiswaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_metodeComboBoxActionPerformed
+           try {
+        // Validasi inputan
+        if (namaComboBox.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Pilih Nama Siswa yang akan dihapus!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    private void metodeComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodeComboBox1ActionPerformed
+        // Ambil data dari inputan
+        String namaSiswa = (String) namaComboBox.getSelectedItem();
+        int idSiswa = getIdSiswaByName(namaSiswa);
+
+        // Konfirmasi penghapusan
+        int confirm = JOptionPane.showConfirmDialog(this, 
+            "Apakah Anda yakin ingin menghapus data untuk siswa: " + namaSiswa + "?", 
+            "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Hapus data dari database
+        String sql = "DELETE FROM pendaftaran WHERE id_siswa = ?";
+        java.sql.Connection conn = koneksi.koneksiDB();
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setInt(1, idSiswa);
+
+        int rowsDeleted = pst.executeUpdate();
+        if (rowsDeleted > 0) {
+            JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
+            tampil(); // Refresh tabel
+            clearInputs(); // Kosongkan inputan
+        } else {
+            JOptionPane.showMessageDialog(this, "Data tidak ditemukan atau sudah dihapus.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+        
+    }//GEN-LAST:event_HapusSiswaActionPerformed
+
+    private void ubahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahSiswaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_metodeComboBox1ActionPerformed
+         try {
+        // Validasi inputan
+        if (namaComboBox.getSelectedIndex() == 0 || kelasComboBox.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Pilih Nama Siswa dan Kelas!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
+        // Ambil data dari inputan form
+        String namaSiswa = (String) namaComboBox.getSelectedItem();
+        String namaKelas = (String) kelasComboBox.getSelectedItem();
+        String jurusan = (String) jurusanComboBox.getSelectedItem();
+        boolean beliOlga = olgaCheckBox.isSelected();
+        boolean beliBatik = batikCheckBox.isSelected();
+        boolean beliPelajaran = pelajaranCheckBox.isSelected();
+        double totalBiaya = Double.parseDouble(LBLTotal.getText().replace("Rp", "").trim());
+        String metodePembayaran = (String) metodeComboBox.getSelectedItem();
+        String statusPendaftaran = (String) statusComboBox.getSelectedItem();
+
+        // Ambil ID siswa dan ID kelas
+        int idSiswa = getIdSiswaByName(namaSiswa);
+        int idKelas = getIdkelasByName(namaKelas);
+
+        // Update data di database
+        String sql = "UPDATE pendaftaran SET id_kelas = ?,jurusan = ?, beli_baju_olahraga = ?, beli_baju_batik = ?, beli_buku_pelajaran = ?, total_biaya = ?, metode_pembayaran = ?, status_pendaftaran = ? WHERE id_siswa = ?" ;
+
+        java.sql.Connection conn = koneksi.koneksiDB();
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setInt(1, idKelas);
+        pst.setString(2, jurusan);
+        pst.setBoolean(3, beliOlga);
+        pst.setBoolean(4, beliBatik);
+        pst.setBoolean(5, beliPelajaran);
+        pst.setDouble(6, totalBiaya);
+        pst.setString(7, metodePembayaran);
+        pst.setString(8, statusPendaftaran);
+        pst.setInt(9, idSiswa);
+
+        int rowsUpdated = pst.executeUpdate();
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(this, "Data berhasil diubah!");
+            tampil(); // Refresh tabel jika diperlukan
+        } else {
+            JOptionPane.showMessageDialog(this, "Data tidak ditemukan atau tidak ada perubahan.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal mengubah data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_ubahSiswaActionPerformed
+
+    private void tambahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahSiswaActionPerformed
+        // TODO add your handling code here:
+        try {
+        // Ambil nama siswa yang dipilih dari ComboBox
+        String namaSiswa = (String) namaComboBox.getSelectedItem();
+        int idSiswa = getIdSiswaByName(namaSiswa);
+
+        // Ambil nama kelas yang dipilih
+        String namaKelas = (String) kelasComboBox.getSelectedItem();
+        int idKelas = getIdkelasByName(namaKelas);
+
+        // Hitung ulang total biaya (opsional jika sudah dihitung sebelumnya)
+        totalBiaya = 0.0;
+        if (olgaCheckBox.isSelected()) totalBiaya += HARGA_BAJU_OLAHRAGA;
+        if (batikCheckBox.isSelected()) totalBiaya += HARGA_BAJU_BATIK;
+        if (pelajaranCheckBox.isSelected()) totalBiaya += HARGA_BUKU_PELAJARAN;
+
+        // Siapkan query untuk menyimpan data ke database
+        String sql = """
+            INSERT INTO pendaftaran (id_siswa, id_kelas, tanggal_pendaftaran, total_biaya, metode_pembayaran,
+                                      status_pendaftaran, beli_baju_olahraga, beli_baju_batik, beli_buku_pelajaran, jurusan)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """;
+
+        java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setInt(1, idSiswa); // ID siswa
+        pst.setInt(2, idKelas); // ID kelas
+        pst.setDate(3, new java.sql.Date(tanggalDateChooser.getDate().getTime())); // Tanggal pendaftaran
+        pst.setDouble(4, totalBiaya); // Total biaya
+        pst.setString(5, (String) metodeComboBox.getSelectedItem()); // Metode pembayaran
+        pst.setString(6, (String) statusComboBox.getSelectedItem()); // Status pendaftaran
+        pst.setBoolean(7, olgaCheckBox.isSelected()); // Beli baju olahraga
+        pst.setBoolean(8, batikCheckBox.isSelected()); // Beli baju batik
+        pst.setBoolean(9, pelajaranCheckBox.isSelected()); // Beli buku pelajaran
+        pst.setString(10, (String) jurusanComboBox.getSelectedItem()); // Jurusan
+
+        pst.executeUpdate(); // Eksekusi query
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+
+        // Perbarui tabel di GUI
+        tampil();
+        clearInputs();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    }//GEN-LAST:event_tambahSiswaActionPerformed
+
+    private void CarikelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarikelasActionPerformed
+        // TODO add your handling code here:
+        try {
+        String keyword = carijTextField.getText(); // Ambil teks pencarian
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Masukkan kata kunci untuk mencari!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String sql = """
+            SELECT siswa.id_siswa, siswa.nama AS nama_siswa, pendaftaran.tanggal_pendaftaran, pendaftaran.jurusan, 
+                   kelas.nama_kelas, kelas.id_kelas, pendaftaran.beli_baju_olahraga, pendaftaran.beli_baju_batik, 
+                   pendaftaran.beli_buku_pelajaran, pendaftaran.total_biaya, pendaftaran.metode_pembayaran, 
+                   pendaftaran.status_pendaftaran
+            FROM pendaftaran
+            INNER JOIN siswa ON pendaftaran.id_siswa = siswa.id_siswa
+            INNER JOIN kelas ON pendaftaran.id_kelas = kelas.id_kelas
+            WHERE siswa.nama LIKE ? OR kelas.nama_kelas LIKE ? OR pendaftaran.status_pendaftaran LIKE ?
+            LIMIT 1
+        """;
+
+        java.sql.Connection conn = koneksi.koneksiDB();
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        String wildcardKeyword = "%" + keyword + "%";
+        pst.setString(1, wildcardKeyword); // Cari di Nama Siswa
+        pst.setString(2, wildcardKeyword); // Cari di Nama Kelas
+        pst.setString(3, wildcardKeyword); // Cari di Status Pembayaran
+
+        ResultSet rs = pst.executeQuery();
+        
+
+
+        if (rs.next()) {
+    // Isi inputan dengan data hasil pencarian
+    namaComboBox.setSelectedItem(rs.getString("nama_siswa").trim());
+    tanggalDateChooser.setDate(rs.getDate("tanggal_pendaftaran"));
+    jurusanComboBox.setSelectedItem(rs.getString("jurusan").trim());
+    kelasComboBox.setSelectedItem(rs.getString("nama_kelas").trim());
+    olgaCheckBox.setSelected(rs.getBoolean("beli_baju_olahraga"));
+    batikCheckBox.setSelected(rs.getBoolean("beli_baju_batik"));
+    pelajaranCheckBox.setSelected(rs.getBoolean("beli_buku_pelajaran"));
+    LBLTotal.setText("Rp" + String.format("%.0f", rs.getDouble("total_biaya")));
+    String metode = rs.getString("metode_pembayaran");
+    String status = rs.getString("status_pendaftaran");
+
+          
+         if ("Cash".equalsIgnoreCase(metode)) {
+            metodeComboBox.setSelectedIndex(1);
+        } else if ("Transfer".equalsIgnoreCase(metode)) {
+            metodeComboBox.setSelectedIndex(2);
+        } else {
+            metodeComboBox.setSelectedIndex(0); // Default: Tidak valid
+        }
+         
+         if ("lunas".equalsIgnoreCase(status)) {
+            statusComboBox.setSelectedIndex(1);
+        } else if ("belum lunas".equalsIgnoreCase(metode)) {
+            statusComboBox.setSelectedIndex(2);
+        } else {
+            metodeComboBox.setSelectedIndex(0); // Default: Tidak valid
+        }
+
+
+    JOptionPane.showMessageDialog(this, "Data ditemukan dan diisi ke inputan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+} else {
+    JOptionPane.showMessageDialog(this, "Tidak ada data yang cocok dengan kata kunci: " + keyword, "Informasi", JOptionPane.INFORMATION_MESSAGE);
+}
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal mencari data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+            
+    }//GEN-LAST:event_CarikelasActionPerformed
+
+    private void carijTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carijTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_carijTextFieldActionPerformed
+
+    private void olgaCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_olgaCheckBoxStateChanged
+        // TODO add your handling code here:
+          updateRincianHarga();
+        
+    }//GEN-LAST:event_olgaCheckBoxStateChanged
+
+    private void pelajaranCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pelajaranCheckBoxStateChanged
+        // TODO add your handling code here:
+        updateRincianHarga();
+    }//GEN-LAST:event_pelajaranCheckBoxStateChanged
+
+    private void batikCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_batikCheckBoxStateChanged
+        // TODO add your handling code here:
+        updateRincianHarga();
+    }//GEN-LAST:event_batikCheckBoxStateChanged
+
+    
+        private final double HARGA_BAJU_OLAHRAGA = 150000.00;
+        private final double HARGA_BAJU_BATIK = 100000.00;
+        private final double HARGA_BUKU_PELAJARAN = 75000.00;
+
+        private double totalBiaya = 0.0; // Variabel untuk menyimpan 
+
+private void clearInputs() {
+    namaComboBox.setSelectedIndex(0); // Reset ComboBox Nama Siswa
+    tanggalDateChooser.setDate(null); // Reset tanggal
+    jurusanComboBox.setSelectedIndex(0); // Reset ComboBox Jurusan
+    kelasComboBox.setSelectedIndex(0); // Reset ComboBox Kelas
+    olgaCheckBox.setSelected(false); // Uncheck Checkbox Olahraga
+    batikCheckBox.setSelected(false); // Uncheck Checkbox Batik
+    pelajaranCheckBox.setSelected(false); // Uncheck Checkbox Pelajaran
+    LBLTotal.setText("Rp0"); // Reset Total Biaya
+    metodeComboBox.setSelectedIndex(0); // Reset ComboBox Metode Pembayaran
+    statusComboBox.setSelectedIndex(0); // Reset ComboBox Status Pembayaran
+}        
+
+        
+public void tampil() {
+    try {
+        DefaultTableModel tabel = new DefaultTableModel();
+        tabel.addColumn("Nama Siswa");
+        tabel.addColumn("Tanggal Pendaftaran");
+        tabel.addColumn("Jurusan");
+        tabel.addColumn("Kelas");
+        tabel.addColumn("Baju Olahraga");
+        tabel.addColumn("Baju Batik");
+        tabel.addColumn("Buku Pelajaran");
+        tabel.addColumn("Total Biaya");
+        tabel.addColumn("Metode Pembayaran");
+        tabel.addColumn("Status Pembayaran");
+
+        java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+        String sql = """
+            SELECT siswa.nama AS nama_siswa, pendaftaran.tanggal_pendaftaran, pendaftaran.jurusan, 
+                   kelas.nama_kelas, pendaftaran.beli_baju_olahraga, pendaftaran.beli_baju_batik, 
+                   pendaftaran.beli_buku_pelajaran, pendaftaran.total_biaya, pendaftaran.metode_pembayaran, 
+                   pendaftaran.status_pendaftaran
+            FROM pendaftaran
+            INNER JOIN siswa ON pendaftaran.id_siswa = siswa.id_siswa
+            INNER JOIN kelas ON pendaftaran.id_kelas = kelas.id_kelas
+        """;
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            tabel.addRow(new Object[]{
+                rs.getString("nama_siswa"),
+                rs.getString("tanggal_pendaftaran"),
+                rs.getString("jurusan"),
+                rs.getString("nama_kelas"),
+                rs.getBoolean("beli_baju_olahraga") ? "Iya" : "Tidak", // Konversi ke Iya/Tidak
+                rs.getBoolean("beli_baju_batik") ? "Iya" : "Tidak",     // Konversi ke Iya/Tidak
+                rs.getBoolean("beli_buku_pelajaran") ? "Iya" : "Tidak",// Konversi ke Iya/Tidak
+                rs.getDouble("total_biaya"),
+                rs.getString("metode_pembayaran"),
+                rs.getString("status_pendaftaran")
+            });
+        }
+        jTable2.setModel(tabel);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal memuat data: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+
+private int getIdSiswaByName(String nama) throws SQLException {
+    // Periksa apakah nama valid
+    if (nama == null || nama.equals("Pilih Nama Siswa")) {
+        throw new SQLException("Nama siswa belum dipilih.");
+    }
+
+    // Cari id_siswa dari Map
+    for (Map.Entry<Integer, String> entry : siswaMap.entrySet()) {
+        if (entry.getValue().equals(nama)) {
+            return entry.getKey(); // Return id_siswa
+        }
+    }
+    throw new SQLException("Siswa dengan nama " + nama + " tidak ditemukan.");
+}
+
+
+
+public void loadSiswaData() {
+    try {
+        siswaMap.clear(); // Bersihkan Map sebelum memuat ulang data
+        namaComboBox.removeAllItems(); // Reset ComboBox
+        namaComboBox.addItem("Pilih Nama Siswa"); // Tambahkan opsi default
+
+        java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();
+        String sql = "SELECT id_siswa, nama FROM siswa"; // Query untuk mendapatkan id_siswa dan nama
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        System.out.println("Data Siswa yang Dimuat:"); // Log header
+        while (rs.next()) {
+            int idSiswa = rs.getInt("id_siswa");
+            String namaSiswa = rs.getString("nama");
+
+            siswaMap.put(idSiswa, namaSiswa); // Tambahkan data ke Map
+            namaComboBox.addItem(namaSiswa); // Tambahkan nama ke ComboBox
+
+            // Log data siswa
+            System.out.println("ID Siswa: " + idSiswa + ", Nama: " + namaSiswa);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal memuat data siswa: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+
+
+        private void hitungTotalBiaya() {
+            totalBiaya = 0.0;
+            if (olgaCheckBox.isSelected()) totalBiaya += HARGA_BAJU_OLAHRAGA;
+            if (batikCheckBox.isSelected()) totalBiaya += HARGA_BAJU_BATIK;
+            if (pelajaranCheckBox.isSelected()) totalBiaya += HARGA_BUKU_PELAJARAN;
+            LBLTotal.setText("Rp" + String.format("%.0f", totalBiaya));
+        }
+
+
+
+        
+     private void loadKelasByJurusan(String jurusan) {
+        kelasComboBox.removeAllItems(); // Reset ComboBox kelas
+        kelasComboBox.addItem("Pilih Kelas"); // Tambahkan opsi default
+        kelasMap.clear(); // Reset Map
+
+        if (jurusan != null && !jurusan.equals("Pilih Jurusan")) {
+            try {
+                 java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB();// Koneksi ke database
+                String sql = "SELECT id_kelas, nama_kelas FROM kelas WHERE jurusan = ?"; // Query
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, jurusan);
+
+                ResultSet rs = pst.executeQuery();
+
+                while (rs.next()) {
+                    String idKelas = rs.getString("id_kelas");
+                    String namaKelas = rs.getString("nama_kelas");
+
+                    kelasComboBox.addItem(namaKelas); // Tambahkan nama_kelas ke ComboBox
+                    kelasMap.put(namaKelas, idKelas); // Simpan id_kelas dengan nama_kelas sebagai kunci
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Gagal memuat kelas: " + e.getMessage());
+            }
+        }
+    }
+
+        
+       private void loadJurusan() {
+        jurusanComboBox.removeAllItems(); // Reset ComboBox
+        jurusanComboBox.addItem("Pilih Jurusan"); // Tambahkan opsi default
+
+        try {
+         java.sql.Connection conn = (java.sql.Connection) koneksi.koneksiDB(); // Koneksi ke database
+            String sql = "SELECT DISTINCT jurusan FROM kelas"; // Query untuk mendapatkan jurusan unik
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                jurusanComboBox.addItem(rs.getString("jurusan")); // Tambahkan jurusan ke ComboBox
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal memuat jurusan: " + e.getMessage());
+        }
+    }
+       
+       private int getIdkelasByName(String nama_kelas) throws SQLException{
+            java.sql.Connection conn=(java.sql.Connection) koneksi.koneksiDB();
+            String sql = "SELECT id_kelas FROM kelas WHERE nama_kelas = ?";
+            java.sql.PreparedStatement pst= conn.prepareStatement(sql);
+            pst.setString(1, nama_kelas);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_kelas");
+            } else {
+                throw new SQLException("Kelas dengan nama " + nama_kelas + " tidak ditemukan");
+            }
+         }
+       
+       private void updateRincianHarga() {
+    StringBuilder rincian = new StringBuilder();
+    double totalBiaya = 0.0;
+
+    // Tambahkan rincian biaya untuk checkbox yang dicentang
+    if (olgaCheckBox.isSelected()) {
+        rincian.append("Baju Olahraga: Rp").append(String.format("%.0f", HARGA_BAJU_OLAHRAGA)).append("\n");
+        totalBiaya += HARGA_BAJU_OLAHRAGA;
+    }
+    if (batikCheckBox.isSelected()) {
+        rincian.append("Baju Batik: Rp").append(String.format("%.0f", HARGA_BAJU_BATIK)).append("\n");
+        totalBiaya += HARGA_BAJU_BATIK;
+    }
+    if (pelajaranCheckBox.isSelected()) {
+        rincian.append("Buku Pelajaran: Rp").append(String.format("%.0f", HARGA_BUKU_PELAJARAN)).append("\n");
+        totalBiaya += HARGA_BUKU_PELAJARAN;
+    }
+
+
+    // Tampilkan rincian di JTextArea
+    rincianHargaTextArea.setText(rincian.toString());
+
+    // Perbarui total di LBLTotal (jika ada)
+    LBLTotal.setText("Rp" + String.format("%.0f", totalBiaya));
+}
+
+
+
+        
+
+           
+    
     /**
      * @param args the command line arguments
      */
@@ -578,12 +905,11 @@ public class pendaftaran extends javax.swing.JFrame {
     private javax.swing.JButton Carikelas;
     private javax.swing.JButton HapusSiswa;
     private javax.swing.JButton Kembali;
-    private javax.swing.JLabel RincianBiaya;
+    private javax.swing.JLabel LBLTotal;
     private javax.swing.JLabel Total;
     private javax.swing.JCheckBox batikCheckBox;
     private javax.swing.JTextField carijTextField;
     private javax.swing.JButton clearSiswa;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -594,16 +920,19 @@ public class pendaftaran extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JComboBox<String> jurusanComboBox;
     private javax.swing.JComboBox<String> kelasComboBox;
     private javax.swing.JComboBox<String> metodeComboBox;
-    private javax.swing.JComboBox<String> metodeComboBox1;
-    private javax.swing.JTextField nama_siswa;
+    private javax.swing.JComboBox<String> namaComboBox;
     private javax.swing.JCheckBox olgaCheckBox;
     private javax.swing.JCheckBox pelajaranCheckBox;
+    private javax.swing.JTextArea rincianHargaTextArea;
+    private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JButton tambahSiswa;
+    private com.toedter.calendar.JDateChooser tanggalDateChooser;
     private javax.swing.JButton ubahSiswa;
     // End of variables declaration//GEN-END:variables
 }
