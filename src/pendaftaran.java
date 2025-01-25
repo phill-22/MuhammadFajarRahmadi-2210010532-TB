@@ -44,14 +44,9 @@ public class pendaftaran extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         carijTextField = new javax.swing.JTextField();
-        Carikelas = new javax.swing.JButton();
+        Cari = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        tambahSiswa = new javax.swing.JButton();
-        ubahSiswa = new javax.swing.JButton();
-        HapusSiswa = new javax.swing.JButton();
-        clearSiswa = new javax.swing.JButton();
-        Kembali = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -71,27 +66,46 @@ public class pendaftaran extends javax.swing.JFrame {
         LBLTotal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rincianHargaTextArea = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
+        tambah = new javax.swing.JButton();
+        ubah = new javax.swing.JButton();
+        Hapus = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
+        Kembali = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
 
         jLabel1.setText("Nama Siswa");
 
         jLabel5.setText("Tanggal Pendaftaran");
 
+        carijTextField.setBackground(new java.awt.Color(255, 255, 255));
+        carijTextField.setForeground(new java.awt.Color(0, 0, 0));
+        carijTextField.setToolTipText("");
         carijTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 carijTextFieldActionPerformed(evt);
             }
         });
 
-        Carikelas.setText("Cari");
-        Carikelas.addActionListener(new java.awt.event.ActionListener() {
+        Cari.setBackground(new java.awt.Color(255, 255, 255));
+        Cari.setForeground(new java.awt.Color(0, 0, 0));
+        Cari.setText("Cari");
+        Cari.setToolTipText("");
+        Cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CarikelasActionPerformed(evt);
+                CariActionPerformed(evt);
             }
         });
 
+        jTable2.setBackground(new java.awt.Color(255, 255, 255));
+        jTable2.setForeground(new java.awt.Color(0, 0, 0));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -105,55 +119,30 @@ public class pendaftaran extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        tambahSiswa.setText("Tambah");
-        tambahSiswa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahSiswaActionPerformed(evt);
-            }
-        });
-
-        ubahSiswa.setText("Ubah");
-        ubahSiswa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ubahSiswaActionPerformed(evt);
-            }
-        });
-
-        HapusSiswa.setText("Hapus");
-        HapusSiswa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HapusSiswaActionPerformed(evt);
-            }
-        });
-
-        clearSiswa.setText("Clear");
-        clearSiswa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearSiswaActionPerformed(evt);
-            }
-        });
-
-        Kembali.setText("Kembali");
-        Kembali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                KembaliActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Cari :");
 
         jLabel3.setText("Jurusan");
 
         jLabel4.setText("Kelas");
 
+        tanggalDateChooser.setBackground(new java.awt.Color(255, 255, 255));
+        tanggalDateChooser.setForeground(new java.awt.Color(0, 0, 0));
+        tanggalDateChooser.setToolTipText("");
+
+        jurusanComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        jurusanComboBox.setForeground(new java.awt.Color(0, 0, 0));
         jurusanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jurusan", "IPS", "IPA", "BAHASA" }));
+        jurusanComboBox.setToolTipText("");
         jurusanComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jurusanComboBoxActionPerformed(evt);
             }
         });
 
+        kelasComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        kelasComboBox.setForeground(new java.awt.Color(0, 0, 0));
         kelasComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kelas" }));
+        kelasComboBox.setToolTipText("");
         kelasComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kelasComboBoxActionPerformed(evt);
@@ -162,21 +151,30 @@ public class pendaftaran extends javax.swing.JFrame {
 
         jLabel6.setText("Pilih Biaya Tambahan :");
 
+        pelajaranCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        pelajaranCheckBox.setForeground(new java.awt.Color(0, 0, 0));
         pelajaranCheckBox.setText("Buku Pelajaran");
+        pelajaranCheckBox.setToolTipText("");
         pelajaranCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 pelajaranCheckBoxStateChanged(evt);
             }
         });
 
+        olgaCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        olgaCheckBox.setForeground(new java.awt.Color(0, 0, 0));
         olgaCheckBox.setText("Baju Olahraga");
+        olgaCheckBox.setToolTipText("");
         olgaCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 olgaCheckBoxStateChanged(evt);
             }
         });
 
+        batikCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        batikCheckBox.setForeground(new java.awt.Color(0, 0, 0));
         batikCheckBox.setText("Baju Batik");
+        batikCheckBox.setToolTipText("");
         batikCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 batikCheckBoxStateChanged(evt);
@@ -187,7 +185,10 @@ public class pendaftaran extends javax.swing.JFrame {
 
         jLabel8.setText("Metode Bayar:");
 
+        metodeComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        metodeComboBox.setForeground(new java.awt.Color(0, 0, 0));
         metodeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Metode Pembayaran", "Cash", "Transfer", " " }));
+        metodeComboBox.setToolTipText("");
         metodeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 metodeComboBoxActionPerformed(evt);
@@ -196,14 +197,20 @@ public class pendaftaran extends javax.swing.JFrame {
 
         jLabel9.setText("Status Pendaftaran");
 
+        statusComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        statusComboBox.setForeground(new java.awt.Color(0, 0, 0));
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih status pembayaran", "lunas", "belum lunas", " ", " " }));
+        statusComboBox.setToolTipText("");
         statusComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusComboBoxActionPerformed(evt);
             }
         });
 
+        namaComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        namaComboBox.setForeground(new java.awt.Color(0, 0, 0));
         namaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Nama Siswa" }));
+        namaComboBox.setToolTipText("");
         namaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 namaComboBoxActionPerformed(evt);
@@ -212,16 +219,104 @@ public class pendaftaran extends javax.swing.JFrame {
 
         LBLTotal.setText("Total");
 
+        rincianHargaTextArea.setBackground(new java.awt.Color(255, 255, 255));
         rincianHargaTextArea.setColumns(20);
+        rincianHargaTextArea.setForeground(new java.awt.Color(0, 0, 0));
         rincianHargaTextArea.setRows(5);
+        rincianHargaTextArea.setToolTipText("");
         jScrollPane1.setViewportView(rincianHargaTextArea);
+
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+
+        tambah.setBackground(new java.awt.Color(255, 255, 255));
+        tambah.setForeground(new java.awt.Color(0, 0, 0));
+        tambah.setText("Tambah");
+        tambah.setToolTipText("");
+        tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahActionPerformed(evt);
+            }
+        });
+
+        ubah.setBackground(new java.awt.Color(255, 255, 255));
+        ubah.setForeground(new java.awt.Color(0, 0, 0));
+        ubah.setText("Ubah");
+        ubah.setToolTipText("");
+        ubah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahActionPerformed(evt);
+            }
+        });
+
+        Hapus.setBackground(new java.awt.Color(255, 255, 255));
+        Hapus.setForeground(new java.awt.Color(0, 0, 0));
+        Hapus.setText("Hapus");
+        Hapus.setToolTipText("");
+        Hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HapusActionPerformed(evt);
+            }
+        });
+
+        clear.setBackground(new java.awt.Color(255, 255, 255));
+        clear.setForeground(new java.awt.Color(0, 0, 0));
+        clear.setText("Clear");
+        clear.setToolTipText("");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
+
+        Kembali.setBackground(new java.awt.Color(255, 255, 255));
+        Kembali.setForeground(new java.awt.Color(0, 0, 0));
+        Kembali.setText("Kembali");
+        Kembali.setToolTipText("");
+        Kembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KembaliActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(ubah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(tambah)
+                .addGap(18, 18, 18)
+                .addComponent(ubah)
+                .addGap(18, 18, 18)
+                .addComponent(Hapus)
+                .addGap(18, 18, 18)
+                .addComponent(clear)
+                .addGap(18, 18, 18)
+                .addComponent(Kembali)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
@@ -233,53 +328,42 @@ public class pendaftaran extends javax.swing.JFrame {
                             .addComponent(pelajaranCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(batikCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(olgaCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(olgaCheckBox, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
                             .addComponent(Total)))
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(metodeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(1280, Short.MAX_VALUE))
+                    .addComponent(metodeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(kelasComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jurusanComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 132, Short.MAX_VALUE)
+                                .addComponent(jurusanComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tanggalDateChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(namaComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(namaComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(LBLTotal))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(ubahSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(HapusSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(clearSiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tambahSiswa, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(297, 297, 297))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(428, 428, 428)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(Carikelas)
-                .addGap(159, 159, 159))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(Cari))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(27, 27, 27))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -309,57 +393,79 @@ public class pendaftaran extends javax.swing.JFrame {
                                 .addComponent(olgaCheckBox)
                                 .addGap(18, 18, 18)
                                 .addComponent(batikCheckBox)))
-                        .addGap(81, 81, 81)
+                        .addGap(60, 60, 60)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, 0)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(metodeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
                                 .addGap(18, 18, 18)
                                 .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cari)
+                            .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(Total)
                                 .addComponent(LBLTotal))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Carikelas)
-                                    .addComponent(carijTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addComponent(tambahSiswa)
-                                .addGap(18, 18, 18)
-                                .addComponent(ubahSiswa)
-                                .addGap(18, 18, 18)
-                                .addComponent(HapusSiswa)
-                                .addGap(18, 18, 18)
-                                .addComponent(clearSiswa)
-                                .addGap(18, 18, 18)
-                                .addComponent(Kembali)))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)))))
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setText("SELAMAT DATANG DI PENDAFTARAN SISWA BARU");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("SILAHKAN INPUT DATA SISWA BARU");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1648, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -401,12 +507,12 @@ public class pendaftaran extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_KembaliActionPerformed
 
-    private void clearSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearSiswaActionPerformed
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
 
         clearInputs();
-    }//GEN-LAST:event_clearSiswaActionPerformed
+    }//GEN-LAST:event_clearActionPerformed
 
-    private void HapusSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusSiswaActionPerformed
+    private void HapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusActionPerformed
         // TODO add your handling code here:
            try {
         // Validasi inputan
@@ -447,9 +553,9 @@ public class pendaftaran extends javax.swing.JFrame {
         e.printStackTrace();
     }
         
-    }//GEN-LAST:event_HapusSiswaActionPerformed
+    }//GEN-LAST:event_HapusActionPerformed
 
-    private void ubahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahSiswaActionPerformed
+    private void ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahActionPerformed
         // TODO add your handling code here:
          try {
         // Validasi inputan
@@ -500,9 +606,9 @@ public class pendaftaran extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Gagal mengubah data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
     }
-    }//GEN-LAST:event_ubahSiswaActionPerformed
+    }//GEN-LAST:event_ubahActionPerformed
 
-    private void tambahSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahSiswaActionPerformed
+    private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
         // TODO add your handling code here:
         try {
         // Ambil nama siswa yang dipilih dari ComboBox
@@ -551,9 +657,9 @@ public class pendaftaran extends javax.swing.JFrame {
         e.printStackTrace();
     }
 
-    }//GEN-LAST:event_tambahSiswaActionPerformed
+    }//GEN-LAST:event_tambahActionPerformed
 
-    private void CarikelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarikelasActionPerformed
+    private void CariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CariActionPerformed
         // TODO add your handling code here:
         try {
         String keyword = carijTextField.getText(); // Ambil teks pencarian
@@ -625,7 +731,7 @@ public class pendaftaran extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Gagal mencari data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
             
-    }//GEN-LAST:event_CarikelasActionPerformed
+    }//GEN-LAST:event_CariActionPerformed
 
     private void carijTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carijTextFieldActionPerformed
         // TODO add your handling code here:
@@ -902,15 +1008,17 @@ public void loadSiswaData() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Carikelas;
-    private javax.swing.JButton HapusSiswa;
+    private javax.swing.JButton Cari;
+    private javax.swing.JButton Hapus;
     private javax.swing.JButton Kembali;
     private javax.swing.JLabel LBLTotal;
     private javax.swing.JLabel Total;
     private javax.swing.JCheckBox batikCheckBox;
     private javax.swing.JTextField carijTextField;
-    private javax.swing.JButton clearSiswa;
+    private javax.swing.JButton clear;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -920,6 +1028,7 @@ public void loadSiswaData() {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
@@ -931,8 +1040,8 @@ public void loadSiswaData() {
     private javax.swing.JCheckBox pelajaranCheckBox;
     private javax.swing.JTextArea rincianHargaTextArea;
     private javax.swing.JComboBox<String> statusComboBox;
-    private javax.swing.JButton tambahSiswa;
+    private javax.swing.JButton tambah;
     private com.toedter.calendar.JDateChooser tanggalDateChooser;
-    private javax.swing.JButton ubahSiswa;
+    private javax.swing.JButton ubah;
     // End of variables declaration//GEN-END:variables
 }
